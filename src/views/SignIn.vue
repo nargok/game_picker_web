@@ -22,17 +22,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { profileStore } from "@/store/profile/profile";
-// import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-
-interface LoginParams {
-  email: string;
-  password: string;
-}
+import { LoginParams } from "@/store/profile/profile.interface";
 
 @Component({
-  components: {
-    // HelloWorld
-  }
+  components: {}
 })
 export default class SignIn extends Vue {
   private email: string | null = null;
@@ -46,8 +39,6 @@ export default class SignIn extends Vue {
           password: this.password
         };
         await profileStore.signInAsync(loginParams);
-        // await profileStore.signInAsync(this.password);
-        // await profileStore.signInAsync(this.email,this.password);
         this.$router.push("/");
       } catch (error) {
         console.log("error:", error);
@@ -57,10 +48,4 @@ export default class SignIn extends Vue {
 }
 </script>
 
-<style scoped>
-.signin-form {
-  /* max-width: 980px; */
-  /* min-width: 100px; */
-  /* border: 1px solid #ececec; */
-}
-</style>
+<style scoped></style>

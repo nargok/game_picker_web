@@ -7,6 +7,7 @@ import {
   Action
 } from "vuex-module-decorators";
 import axios from "axios";
+import { LoginParams } from "@/store/profile/profile.interface";
 
 const setStorage = (profile: Record<string, any>) => {
   localStorage.setItem("profile", JSON.stringify(profile));
@@ -24,7 +25,7 @@ class ProfileModule extends VuexModule {
   }
 
   @Action
-  public async signInAsync(loginParams: Record<string, any>) {
+  public async signInAsync(loginParams: LoginParams) {
     // eslint-disable-next-line no-useless-catch
     try {
       const response = await axios.post("/auth/login", {
