@@ -1,3 +1,4 @@
 import axios from "axios";
 
-axios.defaults.url = "api/";
+axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.url = "http://localhost:5000";

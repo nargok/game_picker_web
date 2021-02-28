@@ -24,12 +24,11 @@ class ProfileModule extends VuexModule {
   }
 
   @Action
-  public async signInAsync(email: string, password: string) {
+  public async signInAsync(loginParams: Record<string, any>) {
     // eslint-disable-next-line no-useless-catch
     try {
-      const response = await axios.post("/signin", {
-        email,
-        password
+      const response = await axios.post("/auth/login", {
+        ...loginParams
       });
       this.saveProfile(response.data);
     } catch (error) {
