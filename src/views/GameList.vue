@@ -21,24 +21,17 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { gameStore } from "@/store/game/game";
 
 @Component({
   components: {}
 })
 export default class GameList extends Vue {
-  private tableData: Record<string, any>[] = [
-    {
-      date: "2016-05-03",
-      title: "Tom",
-      url: "http://www.example.com/1",
-      price: 1000
-    },
-    {
-      date: "2016-05-02",
-      title: "Tom",
-      url: "http://www.example.com/2",
-      price: 2000
-    }
-  ];
+  // todo interfaceを定義する
+  private tableData: Record<string, any>[] = gameStore.getGames;
+
+  mounted() {
+    gameStore.getGameList();
+  }
 }
 </script>
