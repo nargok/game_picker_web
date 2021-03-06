@@ -27,8 +27,9 @@ import { gameStore } from "@/store/game/game";
   components: {}
 })
 export default class GameList extends Vue {
-  // todo interfaceを定義する
-  private tableData: Record<string, any>[] = gameStore.getGames;
+  private get tableData() {
+    return gameStore.getGames;
+  }
 
   mounted() {
     gameStore.getGameList();

@@ -7,19 +7,18 @@ import {
   Action
 } from "vuex-module-decorators";
 import axios from "axios";
+import { GameListItem } from "@/store/game/game.interface";
 
 @Module({ dynamic: true, store, name: "game", namespaced: true })
 class GameModule extends VuexModule {
-  // TODO 型定義
-  private games: Record<string, any>[] = [];
+  private games: GameListItem[] = [];
 
-  // getterは？
   public get getGames() {
     return this.games;
   }
 
   @Mutation
-  private setGames(games: Record<string, any>[]) {
+  private setGames(games: GameListItem[]) {
     this.games = games;
   }
 
