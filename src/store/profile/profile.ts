@@ -16,7 +16,11 @@ const setStorage = (profile: Record<string, any>) => {
 @Module({ dynamic: true, store, name: "profile", namespaced: true })
 class ProfileModule extends VuexModule {
   // TODO 型定義
-  public profile: Record<string, any> | null = null;
+  private profile: Record<string, any> | null = null;
+
+  public get loggedIn() {
+    return localStorage.getItem("profile") ? true : false;
+  }
 
   @Mutation
   private saveProfile(profile: Record<string, any>) {
