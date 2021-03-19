@@ -36,9 +36,13 @@ class GameModule extends VuexModule {
   @Action async createGame(createGameParams: GameListItem) {
     // eslint-disable-next-line no-useless-catch
     try {
-      axios.post("/games", {
-        ...createGameParams
-      });
+      axios.post(
+        "/games",
+        {
+          ...createGameParams
+        },
+        { withCredentials: true }
+      );
     } catch (error) {
       throw error;
     }
