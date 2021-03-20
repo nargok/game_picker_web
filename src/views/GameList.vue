@@ -71,14 +71,9 @@ export default class GameList extends Vue {
 
   private async handleDelete(row: GameListItem) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    // gameStore.deleteGame(row.id!).then(() => {
-    //   gameStore.load().then(() => {
-    //     this.$router.replace("/games");
-    //   });
-    // });
-    await gameStore.deleteGame(row.id!);
-    // await gameStore.load();
-    // this.$router.replace("/games");
+    gameStore.deleteGame(row.id!).then(() => {
+      this.$router.go(0);
+    });
   }
 }
 </script>
