@@ -13,7 +13,7 @@
           <el-input placeholder="金額" v-model="price" />
         </div>
         <div style="margin-top: 15px;">
-          <el-input placeholder="メモ" v-model="memo" />
+          <el-input type="textarea" placeholder="メモ" v-model="memo" />
         </div>
         <div style="margin-top: 15px; margin-bottom: 15px">
           <el-button @click="cancel">

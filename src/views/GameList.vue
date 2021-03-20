@@ -1,6 +1,11 @@
 <template>
   <div>
     <h2>ゲーム一覧</h2>
+    <div class="game_create_button">
+      <el-button type="primary" @click="displayGameCreatePage">
+        新規登録
+      </el-button>
+    </div>
     <el-table :data="tableData" height="250" style="width: 100%">
       <el-table-column prop="title" label="Title" width="180" />
       <el-table-column label="URL">
@@ -34,5 +39,16 @@ export default class GameList extends Vue {
   mounted() {
     gameStore.getGameList();
   }
+
+  private displayGameCreatePage() {
+    this.$router.push("/createGame");
+  }
 }
 </script>
+
+<style scoped>
+.game_create_button {
+  text-align: right;
+  padding-right: 20px;
+}
+</style>
