@@ -58,57 +58,31 @@ class GameModule extends VuexModule {
   }
 
   @Action async createGame(createGameParams: GameCreateParams) {
-    const config = {
-      headers: {
-        Authorization: profileStore.accessToken
-      },
-      withCredentials: true
-    };
     // eslint-disable-next-line no-useless-catch
     try {
-      await axios.post(
-        "/games",
-        {
-          ...createGameParams
-        },
-        config
-      );
+      await axios.post("/games", {
+        ...createGameParams
+      });
     } catch (error) {
       throw error;
     }
   }
 
   @Action async updateGame(updateGameParams: GameUpdateParams) {
-    const config = {
-      headers: {
-        Authorization: profileStore.accessToken
-      },
-      withCredentials: true
-    };
     // eslint-disable-next-line no-useless-catch
     try {
-      await axios.put(
-        `/games/${updateGameParams.id}`,
-        {
-          ...updateGameParams
-        },
-        config
-      );
+      await axios.put(`/games/${updateGameParams.id}`, {
+        ...updateGameParams
+      });
     } catch (error) {
       throw error;
     }
   }
 
   @Action async deleteGame(id: number) {
-    const config = {
-      headers: {
-        Authorization: profileStore.accessToken
-      },
-      withCredentials: true
-    };
     // eslint-disable-next-line no-useless-catch
     try {
-      await axios.delete(`/games/${id}`, config);
+      await axios.delete(`/games/${id}`);
     } catch (error) {
       throw error;
     }
