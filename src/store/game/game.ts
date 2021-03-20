@@ -7,7 +7,9 @@ import {
   Action
 } from "vuex-module-decorators";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { GameListItem } from "@/store/game/game.interface";
+import { profileStore } from "@/store/profile/profile";
 
 @Module({ dynamic: true, store, name: "game", namespaced: true })
 class GameModule extends VuexModule {
@@ -34,6 +36,12 @@ class GameModule extends VuexModule {
   }
 
   @Action async createGame(createGameParams: GameListItem) {
+    const config = {
+      headers: {
+        Authorization: profileStore.accessToken
+      },
+      withCredentials: true
+    };
     // eslint-disable-next-line no-useless-catch
     try {
       axios.post(
@@ -41,7 +49,7 @@ class GameModule extends VuexModule {
         {
           ...createGameParams
         },
-        { withCredentials: true }
+        config
       );
     } catch (error) {
       throw error;

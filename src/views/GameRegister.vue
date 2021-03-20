@@ -42,15 +42,16 @@ export default class GameRegister extends Vue {
   private price = 0;
   private memo: string | null = null;
 
-  private createGame() {
+  private async createGame() {
     if (this.title && this.url) {
       const createGameParams: GameListItem = {
         title: this.title,
         url: this.url,
         price: this.price,
-        memo: this.memo!
+        memo: this.memo ? this.memo : ""
       };
-      gameStore.createGame(createGameParams);
+      await gameStore.createGame(createGameParams);
+      this.$router.push("/games");
     }
   }
 

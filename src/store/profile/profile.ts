@@ -22,6 +22,11 @@ class ProfileModule extends VuexModule {
     return localStorage.getItem("profile") ? true : false;
   }
 
+  public get accessToken() {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return JSON.parse(localStorage.getItem("profile")!).token;
+  }
+
   @Mutation
   private saveProfile(profile: Record<string, any>) {
     this.profile = profile;
