@@ -31,7 +31,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { gameStore } from "@/store/game/game";
-import { GameListItem } from "@/store/game/game.interface";
+import { GameCreateParams } from "@/store/game/game.interface";
 
 @Component({
   components: {}
@@ -44,7 +44,7 @@ export default class GameRegister extends Vue {
 
   private async createGame() {
     if (this.title && this.url) {
-      const createGameParams: GameListItem = {
+      const createGameParams: GameCreateParams = {
         title: this.title,
         url: this.url,
         price: this.price,

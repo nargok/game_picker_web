@@ -7,8 +7,7 @@ import {
   Action
 } from "vuex-module-decorators";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { GameListItem } from "@/store/game/game.interface";
+import { GameListItem, GameCreateParams } from "@/store/game/game.interface";
 import { profileStore } from "@/store/profile/profile";
 
 @Module({ dynamic: true, store, name: "game", namespaced: true })
@@ -25,6 +24,14 @@ class GameModule extends VuexModule {
   }
 
   @Action
+  public async load() {
+    const response = await axios.get("/games").catch(error => {
+      throw error;
+    });
+    this.setGames(response.data);
+  }
+
+  @Action
   public async getGameList() {
     // eslint-disable-next-line no-useless-catch
     try {
@@ -35,7 +42,7 @@ class GameModule extends VuexModule {
     }
   }
 
-  @Action async createGame(createGameParams: GameListItem) {
+  @Action async createGame(createGameParams: GameCreateParams) {
     const config = {
       headers: {
         Authorization: profileStore.accessToken
@@ -44,13 +51,28 @@ class GameModule extends VuexModule {
     };
     // eslint-disable-next-line no-useless-catch
     try {
-      axios.post(
+      await axios.post(
         "/games",
         {
           ...createGameParams
         },
         config
       );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Action async deleteGame(id: number) {
+    const config = {
+      headers: {
+        Authorization: profileStore.accessToken
+      },
+      withCredentials: true
+    };
+    // eslint-disable-next-line no-useless-catch
+    try {
+      await axios.delete(`/games/${id}`, config);
     } catch (error) {
       throw error;
     }

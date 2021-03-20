@@ -6,8 +6,13 @@
         新規登録
       </el-button>
     </div>
-    <el-table :data="tableData" height="250" style="width: 100%">
-      <el-table-column prop="title" label="Title" width="180" />
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column
+        prop="title"
+        label="Title"
+        width="180"
+        show-overflow-tooltip
+      />
       <el-table-column label="URL">
         <template slot-scope="scope">
           <a
@@ -20,13 +25,24 @@
         </template>
       </el-table-column>
       <el-table-column prop="price" label="Price" width="180" />
+      <el-table-column label="Operations">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleEdit(scope.row)">
+            Edit
+          </el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.row)">
+            Delete
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { gameStore } from "@/store/game/game";
+import { GameListItem } from "@/store/game/game.interface";
 
 @Component({
   components: {}
@@ -40,8 +56,29 @@ export default class GameList extends Vue {
     gameStore.getGameList();
   }
 
+  @Watch("gameList")
+  onChangeGameList() {
+    console.log("変わったね");
+  }
+
   private displayGameCreatePage() {
     this.$router.push("/createGame");
+  }
+
+  private handleEdit(row: GameListItem) {
+    console.log(row);
+  }
+
+  private async handleDelete(row: GameListItem) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    // gameStore.deleteGame(row.id!).then(() => {
+    //   gameStore.load().then(() => {
+    //     this.$router.replace("/games");
+    //   });
+    // });
+    await gameStore.deleteGame(row.id!);
+    // await gameStore.load();
+    // this.$router.replace("/games");
   }
 }
 </script>
