@@ -39,7 +39,7 @@ const routes: Array<RouteConfig> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/GameList.vue"),
+      import(/* webpackChunkName: "about" */ "../views/Game/GameList.vue"),
     meta: { requiresAuth: true }
   },
   {
@@ -49,7 +49,17 @@ const routes: Array<RouteConfig> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/GameRegister.vue"),
+      import(/* webpackChunkName: "about" */ "../views/Game/GameRegister.vue"),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/editGame/:id",
+    name: "GameEdit",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Game/GameEdit.vue"),
     meta: { requiresAuth: true }
   }
 ];

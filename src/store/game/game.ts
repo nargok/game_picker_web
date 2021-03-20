@@ -7,7 +7,11 @@ import {
   Action
 } from "vuex-module-decorators";
 import axios from "axios";
-import { GameListItem, GameCreateParams } from "@/store/game/game.interface";
+import {
+  GameListItem,
+  GameCreateParams,
+  GameUpdateParams
+} from "@/store/game/game.interface";
 import { profileStore } from "@/store/profile/profile";
 
 @Module({ dynamic: true, store, name: "game", namespaced: true })
@@ -42,6 +46,17 @@ class GameModule extends VuexModule {
     }
   }
 
+  @Action
+  public async getGameById(id: number) {
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const response = await axios.get(`/games/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   @Action async createGame(createGameParams: GameCreateParams) {
     const config = {
       headers: {
@@ -55,6 +70,27 @@ class GameModule extends VuexModule {
         "/games",
         {
           ...createGameParams
+        },
+        config
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Action async updateGame(updateGameParams: GameUpdateParams) {
+    const config = {
+      headers: {
+        Authorization: profileStore.accessToken
+      },
+      withCredentials: true
+    };
+    // eslint-disable-next-line no-useless-catch
+    try {
+      await axios.put(
+        `/games/${updateGameParams.id}`,
+        {
+          ...updateGameParams
         },
         config
       );

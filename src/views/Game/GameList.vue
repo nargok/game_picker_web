@@ -66,7 +66,7 @@ export default class GameList extends Vue {
   }
 
   private handleEdit(row: GameListItem) {
-    console.log(row);
+    this.$router.push(`/editGame/${row.id}`);
   }
 
   private async handleDelete(row: GameListItem) {
